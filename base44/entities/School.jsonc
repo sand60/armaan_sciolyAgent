@@ -1,0 +1,100 @@
+{
+  "name": "School",
+  "type": "object",
+  "properties": {
+    "school_id": {
+      "type": "string",
+      "description": "Tenant code stamped on every record of this school"
+    },
+    "school_name": {
+      "type": "string"
+    },
+    "division": {
+      "type": "string",
+      "enum": [
+        "Division B",
+        "Division C"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    },
+    "head_coach_email": {
+      "type": "string",
+      "format": "email"
+    },
+    "subscription_status": {
+      "type": "string",
+      "enum": [
+        "Active",
+        "Trial",
+        "Awaiting payment",
+        "Expired"
+      ],
+      "enumColors": [
+        "green",
+        "yellow",
+        "blue",
+        "red"
+      ],
+      "default": "Trial"
+    },
+    "plan": {
+      "type": "string",
+      "enum": [
+        "Single Team",
+        "Varsity + JV",
+        "District Bundle"
+      ],
+      "enumColors": [
+        "blue",
+        "purple",
+        "pink"
+      ]
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "team_whatsapp_group_id": {
+      "type": "string"
+    },
+    "whatsapp_webhook_url": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_id",
+    "school_name",
+    "division",
+    "head_coach_email",
+    "subscription_status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

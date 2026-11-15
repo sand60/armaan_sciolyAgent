@@ -1,0 +1,43 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "description": "The role of the user in the app",
+      "enum": [
+        "admin",
+        "user"
+      ]
+    },
+    "school_id": {
+      "type": "string",
+      "description": "Tenant code of the school this user belongs to. Assigned by the app, never by the user.",
+      "rls": {
+        "update": false
+      }
+    },
+    "app_role": {
+      "type": "string",
+      "description": "Coaching role used for screens: Head Coach, Event Mentor or Student. Assigned by the app.",
+      "enum": [
+        "Head Coach",
+        "Event Mentor",
+        "Student"
+      ],
+      "rls": {
+        "update": false
+      }
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "avatar_uri": {
+      "type": "string",
+      "description": "Private storage URI of the member's profile photo"
+    }
+  },
+  "required": [
+    "role"
+  ]
+}

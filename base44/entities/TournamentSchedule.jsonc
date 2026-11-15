@@ -1,0 +1,67 @@
+{
+  "name": "TournamentSchedule",
+  "type": "object",
+  "properties": {
+    "school_id": {
+      "type": "string"
+    },
+    "tournament_name": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "room_location": {
+      "type": "string"
+    },
+    "impound_window": {
+      "type": "string"
+    },
+    "event_time_slot": {
+      "type": "string"
+    },
+    "impound_complete": {
+      "type": "boolean",
+      "default": false
+    },
+    "students_checked_in": {
+      "type": "boolean",
+      "default": false
+    },
+    "event_completed": {
+      "type": "boolean",
+      "default": false
+    },
+    "emergency_notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_id",
+    "tournament_name",
+    "event_name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "update": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "delete": {
+      "data.school_id": "{{user.data.school_id}}"
+    }
+  }
+}

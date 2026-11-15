@@ -1,0 +1,72 @@
+{
+  "name": "Partnership",
+  "type": "object",
+  "properties": {
+    "school_id": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "student_1_name": {
+      "type": "string"
+    },
+    "student_1_email": {
+      "type": "string"
+    },
+    "student_2_name": {
+      "type": "string"
+    },
+    "student_2_email": {
+      "type": "string"
+    },
+    "student_3_name": {
+      "type": "string"
+    },
+    "student_3_email": {
+      "type": "string"
+    },
+    "last_activity_date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "impound_checklist_verified": {
+      "type": "boolean",
+      "default": false
+    },
+    "current_week_goal": {
+      "type": "string"
+    },
+    "readiness_xp": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "school_id",
+    "event_name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "update": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "delete": {
+      "data.school_id": "{{user.data.school_id}}"
+    }
+  }
+}

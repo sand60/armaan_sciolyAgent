@@ -1,0 +1,105 @@
+{
+  "name": "QuizSet",
+  "type": "object",
+  "properties": {
+    "school_id": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "division": {
+      "type": "string",
+      "enum": [
+        "Division B",
+        "Division C"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    },
+    "title": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string",
+      "description": "rules | rule manual | key topics"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "Practice",
+        "Regional",
+        "State"
+      ],
+      "enumColors": [
+        "green",
+        "yellow",
+        "red"
+      ],
+      "default": "Practice"
+    },
+    "question_count": {
+      "type": "number",
+      "default": 0
+    },
+    "questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "sub_topic": {
+            "type": "string"
+          },
+          "question_text": {
+            "type": "string"
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "correct_answer": {
+            "type": "string"
+          },
+          "explanation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "generated_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_id",
+    "event_name",
+    "title"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "update": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "delete": {
+      "data.school_id": "{{user.data.school_id}}"
+    }
+  }
+}

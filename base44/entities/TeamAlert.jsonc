@@ -1,0 +1,77 @@
+{
+  "name": "TeamAlert",
+  "type": "object",
+  "properties": {
+    "school_id": {
+      "type": "string"
+    },
+    "recipient_email": {
+      "type": "string"
+    },
+    "recipient_label": {
+      "type": "string"
+    },
+    "channel": {
+      "type": "string",
+      "enum": [
+        "Email",
+        "WhatsApp"
+      ],
+      "enumColors": [
+        "blue",
+        "green"
+      ]
+    },
+    "subject": {
+      "type": "string"
+    },
+    "body": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Sent",
+        "Logged",
+        "Failed"
+      ],
+      "enumColors": [
+        "green",
+        "gray",
+        "red"
+      ],
+      "default": "Logged"
+    },
+    "detail": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_id",
+    "subject",
+    "body"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "update": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "delete": {
+      "data.school_id": "{{user.data.school_id}}"
+    }
+  }
+}

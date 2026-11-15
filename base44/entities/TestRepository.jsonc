@@ -1,0 +1,109 @@
+{
+  "name": "TestRepository",
+  "type": "object",
+  "properties": {
+    "school_id": {
+      "type": "string"
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "division": {
+      "type": "string",
+      "enum": [
+        "Division B",
+        "Division C"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    },
+    "tournament_source": {
+      "type": "string"
+    },
+    "season_year": {
+      "type": "string"
+    },
+    "difficulty_level": {
+      "type": "string",
+      "enum": [
+        "Starter",
+        "Regional",
+        "State",
+        "National"
+      ],
+      "enumColors": [
+        "green",
+        "yellow",
+        "purple",
+        "red"
+      ]
+    },
+    "test_pdf": {
+      "type": "string"
+    },
+    "answer_key_pdf": {
+      "type": "string"
+    },
+    "test_url": {
+      "type": "string",
+      "description": "Public link to the past test on the SciOly Test Exchange"
+    },
+    "answer_key_url": {
+      "type": "string",
+      "description": "Public link to the answer key on the SciOly Test Exchange"
+    },
+    "processing_status": {
+      "type": "string",
+      "enum": [
+        "Pending",
+        "Processing",
+        "Ready",
+        "Failed"
+      ],
+      "enumColors": [
+        "gray",
+        "yellow",
+        "green",
+        "red"
+      ],
+      "default": "Pending"
+    },
+    "question_count": {
+      "type": "number",
+      "default": 0
+    },
+    "processing_note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_id",
+    "event_name",
+    "difficulty_level"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "update": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "delete": {
+      "data.school_id": "{{user.data.school_id}}"
+    }
+  }
+}

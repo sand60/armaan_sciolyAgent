@@ -1,0 +1,112 @@
+{
+  "name": "Event",
+  "type": "object",
+  "properties": {
+    "school_id": {
+      "type": "string"
+    },
+    "division": {
+      "type": "string",
+      "enum": [
+        "Division B",
+        "Division C"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    },
+    "event_name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Study",
+        "Build",
+        "Lab",
+        "Hybrid"
+      ],
+      "enumColors": [
+        "blue",
+        "red",
+        "green",
+        "purple"
+      ]
+    },
+    "time_block": {
+      "type": "string",
+      "enum": [
+        "Block 1",
+        "Block 2",
+        "Block 3",
+        "Block 4",
+        "Block 5",
+        "Block 6",
+        "Self-Scheduled"
+      ],
+      "enumColors": [
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "blue",
+        "gray"
+      ]
+    },
+    "max_partners": {
+      "type": "number",
+      "default": 2
+    },
+    "requires_impound": {
+      "type": "boolean",
+      "default": false
+    },
+    "rule_manual_uri": {
+      "type": "string",
+      "description": "Private storage URI of the rule manual PDF"
+    },
+    "rules_summary": {
+      "type": "string",
+      "description": "Official event rules digest used to ground flashcards, quizzes and study guides"
+    },
+    "key_topics": {
+      "type": "string"
+    },
+    "event_mentor_email": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_id",
+    "event_name",
+    "category"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "update": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "delete": {
+      "data.school_id": "{{user.data.school_id}}"
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "name": "Tournament",
+  "type": "object",
+  "properties": {
+    "school_id": {
+      "type": "string"
+    },
+    "tournament_name": {
+      "type": "string"
+    },
+    "tournament_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "division_note": {
+      "type": "string"
+    },
+    "portal_url": {
+      "type": "string"
+    },
+    "self_schedule_open": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "self_schedule_close": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Upcoming",
+        "In Progress",
+        "Completed"
+      ],
+      "enumColors": [
+        "blue",
+        "yellow",
+        "green"
+      ],
+      "default": "Upcoming"
+    }
+  },
+  "required": [
+    "school_id",
+    "tournament_name",
+    "tournament_date"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "update": {
+      "data.school_id": "{{user.data.school_id}}"
+    },
+    "delete": {
+      "data.school_id": "{{user.data.school_id}}"
+    }
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "name": "StudentApplication",
+  "type": "object",
+  "properties": {
+    "school_id": {
+      "type": "string"
+    },
+    "student_name": {
+      "type": "string"
+    },
+    "grade": {
+      "type": "string"
+    },
+    "student_email": {
+      "type": "string"
+    },
+    "student_phone": {
+      "type": "string",
+      "description": "Student mobile number, if they have one"
+    },
+    "division": {
+      "type": "string",
+      "enum": [
+        "Division B",
+        "Division C"
+      ],
+      "enumColors": [
+        "blue",
+        "purple"
+      ]
+    },
+    "event_choices": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Events the student picked from their division's catalog"
+    },
+    "parent_name": {
+      "type": "string"
+    },
+    "parent_email": {
+      "type": "string"
+    },
+    "parent_whatsapp_phone": {
+      "type": "string"
+    },
+    "parent_2_name": {
+      "type": "string"
+    },
+    "parent_2_email": {
+      "type": "string"
+    },
+    "parent_2_phone": {
+      "type": "string"
+    },
+    "parent_coach_events": {
+      "type": "string",
+      "description": "Event(s) a parent can coach or co-coach"
+    },
+    "rules_acknowledged": {
+      "type": "boolean",
+      "default": false,
+      "description": "Family agreed to the team rules and expectations"
+    },
+    "parent_volunteer_interest": {
+      "type": "boolean",
+      "default": false
+    },
+    "top_choice_1": {
+      "type": "string"
+    },
+    "top_choice_2": {
+      "type": "string"
+    },
+    "top_choice_3": {
+      "type": "string"
+    },
+    "backup_choice_4": {
+      "type": "string"
+    },
+    "preferred_partner": {
+      "type": "string"
+    },
+    "tryout_score": {
+      "type": "number"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "New",
+        "Placed",
+        "Waitlist"
+      ],
+      "enumColors": [
+        "blue",
+        "green",
+        "yellow"
+      ],
+      "default": "New"
+    },
+    "placed_event": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "school_id",
+    "student_name",
+    "student_email"
+  ],
+  "rls": {
+    "create": {},
+    "read": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "data.school_id": "{{user.data.school_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
